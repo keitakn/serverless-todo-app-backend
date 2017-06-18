@@ -51,9 +51,6 @@ export namespace TodoTest {
         ).then((response: AxiosResponse) => {
           resolve(response);
         }).catch((error) => {
-
-          console.error(error);
-
           reject(error);
         });
       });
