@@ -12,6 +12,8 @@
     "test:all": "mocha -t 30000 -R nyan --compilers ts:ts-node/register src/tests/**/*.spec.ts",
     "test:all:local": "IS_LOCAL=true mocha -t 30000 --compilers ts:ts-node/register src/tests/**/*.spec.ts",
     "server": "tsc && serverless offline",
+    "dynamodb": "serverless dynamodb start",
+    "migrate": "serverless dynamodb migrate",
     "debug": "tsc && node-debug serverless offline"
   },
   "author": "keita-nishimoto",
