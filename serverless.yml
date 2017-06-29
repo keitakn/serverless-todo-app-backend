@@ -19,7 +19,7 @@ provider:
         - dynamodb:PutItem
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
-      Resource: 'arn:aws:dynamodb:ap-northeast-1:*:*'
+      Resource: 'arn:aws:dynamodb:us-east-1:*:*'
   environment:
     DEPLOY_STAGE: ${env:DEPLOY_STAGE}
     TODOS_TABLE_NAME: ${env:DEPLOY_STAGE}_Todo
