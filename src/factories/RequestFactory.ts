@@ -10,7 +10,7 @@ import * as lambda from "aws-lambda";
 export default class RequestFactory {
 
   /**
-   * @param event
+   * @param _event
    */
   constructor(private _event: lambda.APIGatewayEvent) {
   }
