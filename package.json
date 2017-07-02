@@ -26,6 +26,7 @@
     "@types/uuid": "^3.0.0",
     "aws-sdk": "^2.72.0",
     "axios": "^0.16.2",
+    "jsonschema": "^1.1.1",
     "mocha": "^3.4.2",
     "node-inspector": "^1.1.1",
     "power-assert": "^1.4.4",
