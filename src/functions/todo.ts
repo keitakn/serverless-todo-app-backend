@@ -2,6 +2,7 @@ import * as lambda from "aws-lambda";
 import * as sourceMapSupport from "source-map-support";
 import * as uuidV4 from "uuid/v4";
 import ErrorResponse from "../domain/ErrorResponse";
+import SuccessResponse from "../domain/SuccessResponse";
 import AwsSdkFactory from "../factories/AwsSdkFactory";
 import RequestFactory from "../factories/RequestFactory";
 import TodoRepository from "../repositories/TodoRepository";
@@ -39,13 +40,9 @@ export const create: lambda.ProxyHandler = async (
     const todoRepository = new TodoRepository(dynamoDbDocumentClient);
     const createResponse = await todoRepository.create(createParams);
 
-    const response = {
-      statusCode: 201,
-      body: JSON.stringify(createResponse),
-      headers: {"Access-Control-Allow-Origin": "*"},
-    };
+    const successResponse = new SuccessResponse(createResponse, 201);
 
-    callback(undefined, response);
+    callback(undefined, successResponse.getResponse());
   } catch (error) {
     const errorResponse = new ErrorResponse(error);
     const response = errorResponse.getResponse();
