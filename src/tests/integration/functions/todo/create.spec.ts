@@ -24,4 +24,24 @@ describe("createTodoTest", () => {
       assert.ok(response.data.updatedAt, "updatedAtの存在チェック");
     })();
   });
+
+  /**
+   * 異常系テストケース
+   *
+   * バリデーションエラー
+   */
+  it("testFailValidation", () => {
+    return (async () => {
+      const request = {
+        title: "a",
+      };
+
+      await TodoTest.ApiClient.createTodo(request);
+    })().catch((error) => {
+      assert.equal(error.response.status, 422, "ステータスコードのチェック");
+      assert.equal(error.response.data.code, 422, "エラーコードのチェック");
+      assert.equal(error.response.data.message, "Unprocessable Entity", "エラーメッセージのチェック");
+      assert.ok(error.response.data.errors.title, "titleがerrorに含まれている事をチェック");
+    });
+  });
 });

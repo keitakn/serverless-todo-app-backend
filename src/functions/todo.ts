@@ -3,6 +3,8 @@ import * as sourceMapSupport from "source-map-support";
 import * as uuidV4 from "uuid/v4";
 import ErrorResponse from "../domain/ErrorResponse";
 import SuccessResponse from "../domain/SuccessResponse";
+import TodoValidationService from "../domain/TodoValidationService";
+import ValidationErrorResponse from "../domain/ValidationErrorResponse";
 import AwsSdkFactory from "../factories/AwsSdkFactory";
 import RequestFactory from "../factories/RequestFactory";
 import TodoRepository from "../repositories/TodoRepository";
@@ -26,6 +28,13 @@ export const create: lambda.ProxyHandler = async (
 ): Promise<void> => {
   try {
     const requestObject: TodoRequest.CreateRequest = new RequestFactory(event).create();
+
+    const validateResultObject = TodoValidationService.createValidate(requestObject);
+    if (Object.keys(validateResultObject).length !== 0) {
+      const validationErrorResponse = new ValidationErrorResponse(validateResultObject);
+      callback(undefined, validationErrorResponse.getResponse());
+      return;
+    }
 
     const nowDateTime = new Date().getTime();
 
