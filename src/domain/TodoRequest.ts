@@ -12,4 +12,11 @@ namespace TodoRequest {
   export interface CreateRequest {
     title: string;
   }
+
+  /**
+   * TODO取得APIのリクエスト型
+   */
+  export interface FindRequest {
+    id: string;
+  }
 }
