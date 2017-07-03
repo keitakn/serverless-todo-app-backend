@@ -18,7 +18,7 @@ describe("findTodoTest", () => {
   beforeEach(() => {
     return (async () => {
       const request = {
-        title: "買い物に行く。",
+        title: "猫にご飯をあげる。",
       };
 
       const response = await TodoTest.ApiClient.createTodo(request);
