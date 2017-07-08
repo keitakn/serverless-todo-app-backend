@@ -1,6 +1,9 @@
 import {DocumentClient} from "aws-sdk/lib/dynamodb/document_client";
 import InternalServerError from "../errors/InternalServerError";
 import {Logger} from "../infrastructures/Logger";
+import GetItemOutput = DocumentClient.GetItemOutput;
+import {TodoResponse} from "../domain/TodoResponse";
+import NotFoundError from "../errors/NotFoundError";
 
 /**
  * Repository
@@ -38,6 +41,49 @@ export default class TodoRepository {
         new InternalServerError(error.message),
       );
     }
+  }
+
+  /**
+   * TODOを1件取得する
+   *
+   * @param id
+   * @returns {Promise<TodoResponse.FindResponse>}
+   */
+  public find(id: string): Promise<TodoResponse.FindResponse> {
+    return new Promise<TodoResponse.FindResponse>((resolve, reject) => {
+      const params = {
+        TableName: this.getTableName(),
+        Key: {
+          id,
+        },
+      };
+
+      this.dynamoDbDocumentClient
+        .get(params)
+        .promise()
+        .then((getItemOutput: GetItemOutput) => {
+
+          if (getItemOutput.Item == null) {
+            return reject(new NotFoundError());
+          }
+
+          const findResponse: TodoResponse.FindResponse = {
+            id: getItemOutput.Item["id"],
+            title: getItemOutput.Item["title"],
+            isCompleted: getItemOutput.Item["isCompleted"],
+            createdAt: getItemOutput.Item["createdAt"],
+            updatedAt: getItemOutput.Item["updatedAt"],
+          };
+
+          return resolve(findResponse);
+        })
+        .catch((error) => {
+          Logger.critical(error);
+          return reject(
+            new InternalServerError(error.message),
+          );
+        });
+    });
   }
 
   /**

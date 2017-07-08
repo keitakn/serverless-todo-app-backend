@@ -55,5 +55,35 @@ export namespace TodoTest {
         });
       });
     }
+
+    /**
+     * TODOを1件取得する
+     *
+     * @param id
+     * @returns {Promise<AxiosResponse>}
+     */
+    public static findTodo(id: string): Promise<AxiosResponse> {
+      return new Promise<AxiosResponse>((resolve, reject) => {
+        const headers = {
+          "Content-type": "application/json",
+        };
+
+        const baseUri = TestUtil.createTodoApiUri();
+        const requestUri = `${baseUri}/todo/${id}`;
+
+        const requestConfig = {
+          headers,
+        };
+
+        axios.get(
+          requestUri,
+          requestConfig,
+        ).then((response: AxiosResponse) => {
+          resolve(response);
+        }).catch((error) => {
+          reject(error);
+        });
+      });
+    }
   }
 }

@@ -64,6 +64,13 @@ functions:
           path: todo
           method: post
           cors: true
+  findTodo:
+    handler: build/functions/todo.find
+    events:
+      - http:
+          path: todo/{id}
+          method: get
+          cors: true
 
 resources:
   Resources:
