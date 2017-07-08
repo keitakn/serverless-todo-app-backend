@@ -52,4 +52,19 @@ describe("findTodoTest", () => {
       assert.fail(error.response.data);
     });
   });
+
+  /**
+   * 異常系テストケース
+   * 指定したTODOが存在しない
+   */
+  it("testFailDoesNotExists", () => {
+    return (async () => {
+      const response = await TodoTest.ApiClient.findTodo("2443f38f-8a69-4525-b2d1-d5da482764d1");
+      assert.fail(response.data);
+    })().catch((error) => {
+      assert.equal(error.response.status, 404, "ステータスコードのチェック");
+      assert.equal(error.response.data.code, 404, "エラーコードのチェック");
+      assert.equal(error.response.data.message, "Not Found", "エラーメッセージのチェック");
+    });
+  });
 });
