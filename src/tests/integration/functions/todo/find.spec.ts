@@ -55,6 +55,7 @@ describe("findTodoTest", () => {
 
   /**
    * 異常系テストケース
+   *
    * 指定したTODOが存在しない
    */
   it("testFailDoesNotExists", () => {
@@ -65,6 +66,23 @@ describe("findTodoTest", () => {
       assert.equal(error.response.status, 404, "ステータスコードのチェック");
       assert.equal(error.response.data.code, 404, "エラーコードのチェック");
       assert.equal(error.response.data.message, "Not Found", "エラーメッセージのチェック");
+    });
+  });
+
+  /**
+   * 異常系テストケース
+   *
+   * バリデーションエラー
+   */
+  it("testFailValidation", () => {
+    return (async () => {
+      const response = await TodoTest.ApiClient.findTodo("abc");
+      assert.fail(response.data);
+    })().catch((error) => {
+      assert.equal(error.response.status, 422, "ステータスコードのチェック");
+      assert.equal(error.response.data.code, 422, "エラーコードのチェック");
+      assert.equal(error.response.data.message, "Unprocessable Entity", "エラーメッセージのチェック");
+      assert.ok(error.response.data.errors.id, "idがerrorに含まれている事をチェック");
     });
   });
 });
