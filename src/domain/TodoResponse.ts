@@ -18,7 +18,7 @@ export namespace TodoResponse {
   }
 
   /**
-   * TODO取得APIのリクエスト型
+   * TODO取得APIのレスポンス型
    */
   export interface FindResponse {
     id: string;
@@ -29,9 +29,9 @@ export namespace TodoResponse {
   }
 
   /**
-   * TODO全件取得APIのリクエスト型
+   * TODOリストAPIのレスポンス型
    */
-  export interface FindAllResponse {
+  export interface FindListResponse {
     items: FindResponse[];
   }
 }

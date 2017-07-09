@@ -71,8 +71,8 @@ functions:
           path: todo/{id}
           method: get
           cors: true
-  findAllTodo:
-    handler: build/functions/todo.findAll
+  findTodoList:
+    handler: build/functions/todo.findList
     events:
       - http:
           path: todo

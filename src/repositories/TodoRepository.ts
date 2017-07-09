@@ -89,12 +89,12 @@ export default class TodoRepository {
   }
 
   /**
-   * TODOを全て取得する
+   * TODOリストを取得する
    *
-   * @returns {Promise<TodoResponse.FindAllResponse>}
+   * @returns {Promise<TodoResponse.FindListResponse>}
    */
-  public findAll(): Promise<TodoResponse.FindAllResponse> {
-    return new Promise<TodoResponse.FindAllResponse>((resolve, reject) => {
+  public findList(): Promise<TodoResponse.FindListResponse> {
+    return new Promise<TodoResponse.FindListResponse>((resolve, reject) => {
       const params = {
         TableName: this.getTableName(),
         Limit: 100,
@@ -120,7 +120,7 @@ export default class TodoRepository {
             return findResponse;
           });
 
-          const todoListResponse: TodoResponse.FindAllResponse = {
+          const todoListResponse: TodoResponse.FindListResponse = {
             items: todoItems
           };
 

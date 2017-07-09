@@ -98,23 +98,23 @@ export const find: lambda.ProxyHandler = async (
 };
 
 /**
- * TODOを全件取得する
+ * TODOリストを取得する
  *
  * @param event
  * @param context
  * @param callback
  * @returns {Promise<void>}
  */
-export const findAll: lambda.ProxyHandler = async (
+export const findList: lambda.ProxyHandler = async (
   event: lambda.APIGatewayEvent,
   context: lambda.Context,
   callback: lambda.Callback,
 ): Promise<void> => {
   try {
     const todoRepository = new TodoRepository(dynamoDbDocumentClient);
-    const findAllResponse = await todoRepository.findAll();
+    const findListResponse = await todoRepository.findList();
 
-    const successResponse = new SuccessResponse(findAllResponse, 200);
+    const successResponse = new SuccessResponse(findListResponse, 200);
 
     callback(undefined, successResponse.getResponse());
   } catch (error) {

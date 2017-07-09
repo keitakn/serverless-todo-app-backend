@@ -91,7 +91,7 @@ export namespace TodoTest {
      *
      * @returns {Promise<AxiosResponse>}
      */
-    public static findAllTodo(): Promise<AxiosResponse> {
+    public static findTodoList(): Promise<AxiosResponse> {
       return new Promise<AxiosResponse>((resolve, reject) => {
         const headers = {
           "Content-type": "application/json",

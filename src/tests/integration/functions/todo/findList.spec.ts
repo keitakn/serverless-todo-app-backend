@@ -3,9 +3,9 @@ import {TodoTest} from "../../../lib/TodoTest";
 import {TodoResponse} from "../../../../domain/TodoResponse";
 
 /**
- * TODO全件取得APIのテスト
+ * TODOリスト取得APIのテスト
  */
-describe("findAllTodoTest", () => {
+describe("findTodoListTest", () => {
 
   /**
    * テストに利用するTODOオブジェクト
@@ -41,7 +41,7 @@ describe("findAllTodoTest", () => {
    */
   it("testSuccess", () => {
     return (async () => {
-      const response = await TodoTest.ApiClient.findAllTodo();
+      const response = await TodoTest.ApiClient.findTodoList();
       assert.equal(response.status, 200, "ステータスコードのチェック");
     })().catch((error) => {
       assert.fail(error.response.data);
