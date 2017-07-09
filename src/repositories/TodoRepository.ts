@@ -4,6 +4,8 @@ import {Logger} from "../infrastructures/Logger";
 import GetItemOutput = DocumentClient.GetItemOutput;
 import {TodoResponse} from "../domain/TodoResponse";
 import NotFoundError from "../errors/NotFoundError";
+//import FindResponse = TodoResponse.FindResponse;
+//import FindAllResponse = TodoResponse.FindAllResponse;
 
 /**
  * Repository
@@ -76,6 +78,53 @@ export default class TodoRepository {
           };
 
           return resolve(findResponse);
+        })
+        .catch((error) => {
+          Logger.critical(error);
+          return reject(
+            new InternalServerError(error.message),
+          );
+        });
+    });
+  }
+
+  /**
+   * TODOを全て取得する
+   *
+   * @returns {Promise<TodoResponse.FindAllResponse>}
+   */
+  public findAll(): Promise<TodoResponse.FindAllResponse> {
+    return new Promise<TodoResponse.FindAllResponse>((resolve, reject) => {
+      const params = {
+        TableName: this.getTableName(),
+        Limit: 100,
+      };
+
+      this.dynamoDbDocumentClient
+        .scan(params)
+        .promise()
+        .then((scanOutput) => {
+          if (scanOutput.Items == null) {
+            return reject(new NotFoundError());
+          }
+
+          const todoItems = scanOutput.Items.map((todo) => {
+            const findResponse: TodoResponse.FindResponse = {
+              id: todo["id"],
+              title: todo["title"],
+              isCompleted: todo["isCompleted"],
+              createdAt: todo["createdAt"],
+              updatedAt: todo["updatedAt"],
+            };
+
+            return findResponse;
+          });
+
+          const todoListResponse: TodoResponse.FindAllResponse = {
+            items: todoItems
+          };
+
+          return resolve(todoListResponse);
         })
         .catch((error) => {
           Logger.critical(error);

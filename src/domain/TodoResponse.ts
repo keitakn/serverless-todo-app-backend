@@ -27,4 +27,11 @@ export namespace TodoResponse {
     createdAt: number;
     updatedAt: number;
   }
+
+  /**
+   * TODO全件取得APIのリクエスト型
+   */
+  export interface FindAllResponse {
+    items: FindResponse[];
+  }
 }
