@@ -4,8 +4,6 @@ import {Logger} from "../infrastructures/Logger";
 import GetItemOutput = DocumentClient.GetItemOutput;
 import {TodoResponse} from "../domain/TodoResponse";
 import NotFoundError from "../errors/NotFoundError";
-//import FindResponse = TodoResponse.FindResponse;
-//import FindAllResponse = TodoResponse.FindAllResponse;
 
 /**
  * Repository
