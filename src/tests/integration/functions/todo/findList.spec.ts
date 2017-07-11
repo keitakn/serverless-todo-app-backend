@@ -39,9 +39,13 @@ describe("findTodoListTest", () => {
   /**
    * 正常系テストケース
    */
-  it("testSuccess", () => {
+  it("testSuccessSetQueryParams", () => {
     return (async () => {
-      const response = await TodoTest.ApiClient.findTodoList();
+      const request = {
+        limit: 1,
+      };
+
+      const response = await TodoTest.ApiClient.findTodoList(request);
       assert.equal(response.status, 200, "ステータスコードのチェック");
     })().catch((error) => {
       assert.fail(error.response.data);

@@ -3,6 +3,7 @@ import * as sourceMapSupport from "source-map-support";
 import * as uuidV4 from "uuid/v4";
 import ErrorResponse from "../domain/ErrorResponse";
 import SuccessResponse from "../domain/SuccessResponse";
+import {TodoRequest} from "../domain/TodoRequest";
 import TodoValidationService from "../domain/TodoValidationService";
 import ValidationErrorResponse from "../domain/ValidationErrorResponse";
 import AwsSdkFactory from "../factories/AwsSdkFactory";
@@ -111,8 +112,10 @@ export const findList: lambda.ProxyHandler = async (
   callback: lambda.Callback,
 ): Promise<void> => {
   try {
+    const requestObject = extractQueryStringParams(event);
+
     const todoRepository = new TodoRepository(dynamoDbDocumentClient);
-    const findListResponse = await todoRepository.findList();
+    const findListResponse = await todoRepository.findList(requestObject);
 
     const successResponse = new SuccessResponse(findListResponse, 200);
 
@@ -141,4 +144,26 @@ const extractRequest = (event: lambda.APIGatewayEvent): TodoRequest.FindRequest 
   return {
     id: "",
   };
+};
+
+/**
+ * APIGatewayEventからQueryパラメータを取り出す
+ *
+ * @param event
+ * @returns {{limit: number}}
+ */
+const extractQueryStringParams = (event: lambda.APIGatewayEvent): TodoRequest.FindListRequest => {
+  const defaultParams = {
+    limit: 10,
+  };
+
+  if (event.queryStringParameters == null) {
+    return defaultParams;
+  }
+
+  if (event.queryStringParameters.limit == null) {
+    return defaultParams;
+  }
+
+  return {limit: parseInt(event.queryStringParameters.limit, 10)};
 };

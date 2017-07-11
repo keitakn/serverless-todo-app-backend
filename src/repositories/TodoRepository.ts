@@ -2,6 +2,7 @@ import {DocumentClient} from "aws-sdk/lib/dynamodb/document_client";
 import InternalServerError from "../errors/InternalServerError";
 import {Logger} from "../infrastructures/Logger";
 import GetItemOutput = DocumentClient.GetItemOutput;
+import {TodoRequest} from "../domain/TodoRequest";
 import {TodoResponse} from "../domain/TodoResponse";
 import NotFoundError from "../errors/NotFoundError";
 
@@ -91,11 +92,11 @@ export default class TodoRepository {
    *
    * @returns {Promise<TodoResponse.FindListResponse>}
    */
-  public findList(): Promise<TodoResponse.FindListResponse> {
+  public findList(request: TodoRequest.FindListRequest): Promise<TodoResponse.FindListResponse> {
     return new Promise<TodoResponse.FindListResponse>((resolve, reject) => {
       const params = {
         TableName: this.getTableName(),
-        Limit: 100,
+        Limit: request.limit,
       };
 
       this.dynamoDbDocumentClient
@@ -119,7 +120,7 @@ export default class TodoRepository {
           });
 
           const todoListResponse: TodoResponse.FindListResponse = {
-            items: todoItems
+            items: todoItems,
           };
 
           return resolve(todoListResponse);
