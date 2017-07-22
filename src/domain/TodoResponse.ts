@@ -33,5 +33,6 @@ export namespace TodoResponse {
    */
   export interface FindListResponse {
     items: FindResponse[];
+    count: number;
   }
 }

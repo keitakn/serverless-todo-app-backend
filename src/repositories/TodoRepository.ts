@@ -103,7 +103,7 @@ export default class TodoRepository {
         .scan(params)
         .promise()
         .then((scanOutput) => {
-          if (scanOutput.Items == null) {
+          if (scanOutput.Items == null || scanOutput.Count == null) {
             return reject(new NotFoundError());
           }
 
@@ -121,6 +121,7 @@ export default class TodoRepository {
 
           const todoListResponse: TodoResponse.FindListResponse = {
             items: todoItems,
+            count: scanOutput.Count,
           };
 
           return resolve(todoListResponse);

@@ -47,6 +47,7 @@ describe("findTodoListTest", () => {
 
       const response = await TodoTest.ApiClient.findTodoList(request);
       assert.equal(response.status, 200, "ステータスコードのチェック");
+      assert.equal(response.data.count, 1, "件数のチェック");
     })().catch((error) => {
       assert.fail(error.response.data);
     });
