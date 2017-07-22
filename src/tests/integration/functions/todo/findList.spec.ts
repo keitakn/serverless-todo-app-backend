@@ -38,6 +38,7 @@ describe("findTodoListTest", () => {
 
   /**
    * 正常系テストケース
+   * Queryパラメータを指定する
    */
   it("testSuccessSetQueryParams", () => {
     return (async () => {
@@ -48,6 +49,22 @@ describe("findTodoListTest", () => {
       const response = await TodoTest.ApiClient.findTodoList(request);
       assert.equal(response.status, 200, "ステータスコードのチェック");
       assert.equal(response.data.count, 1, "件数のチェック");
+      assert.ok(response.data.items, "itemsが設定されている事をチェック");
+    })().catch((error) => {
+      assert.fail(error.response.data);
+    });
+  });
+
+  /**
+   * 正常系テストケース
+   * Queryパラメータを指定しない
+   */
+  it("testSuccessNoSetQueryParams", () => {
+    return (async () => {
+      const response = await TodoTest.ApiClient.findTodoList();
+      assert.equal(response.status, 200, "ステータスコードのチェック");
+      assert.ok(response.data.count, "countが設定されている事をチェック");
+      assert.ok(response.data.items, "itemsが設定されている事をチェック");
     })().catch((error) => {
       assert.fail(error.response.data);
     });
