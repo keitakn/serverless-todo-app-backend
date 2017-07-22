@@ -99,6 +99,8 @@ export default class TodoRepository {
         Limit: request.limit,
       };
 
+      // scan() はパフォーマンス、コストの点から出来る限り利用すべきではない（本件はサンプルプロジェクトなので使っている）
+      // 実開発では出来る限り query() で解決出来るようなデータ構造を設計するべき
       this.dynamoDbDocumentClient
         .scan(params)
         .promise()
