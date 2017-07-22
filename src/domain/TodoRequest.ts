@@ -4,7 +4,7 @@
  * @author keita-nishimoto
  * @since 2017-07-02
  */
-namespace TodoRequest {
+export namespace TodoRequest {
 
   /**
    * TODO作成APIのリクエスト型
@@ -18,5 +18,12 @@ namespace TodoRequest {
    */
   export interface FindRequest {
     id: string;
+  }
+
+  /**
+   * TODOリスト取得APIのリクエスト型
+   */
+  export interface FindListRequest {
+    limit?: number;
   }
 }

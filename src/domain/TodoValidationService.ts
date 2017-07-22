@@ -61,4 +61,29 @@ export default class TodoValidationService {
 
     return domainValidator.doValidate(request);
   }
+
+  /**
+   * TODOリスト取得APIのバリデーション
+   *
+   * @param request
+   * @returns {{[p: string]: string}}
+   */
+  public static findListValidate(request: any): {[name: string]: string} {
+    const scheme = {
+      type: "object",
+      properties: {
+        limit: {
+          type: "number",
+          minimum: 1,
+          maximum: 11,
+          exclusiveMaximum: true,
+        },
+      },
+      additionalProperties: false,
+    };
+
+    const domainValidator = new DomainValidator(scheme);
+
+    return domainValidator.doValidate(request);
+  }
 }

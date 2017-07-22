@@ -3,6 +3,7 @@ import * as sourceMapSupport from "source-map-support";
 import * as uuidV4 from "uuid/v4";
 import ErrorResponse from "../domain/ErrorResponse";
 import SuccessResponse from "../domain/SuccessResponse";
+import {TodoRequest} from "../domain/TodoRequest";
 import TodoValidationService from "../domain/TodoValidationService";
 import ValidationErrorResponse from "../domain/ValidationErrorResponse";
 import AwsSdkFactory from "../factories/AwsSdkFactory";
@@ -98,6 +99,43 @@ export const find: lambda.ProxyHandler = async (
 };
 
 /**
+ * TODOリストを取得する
+ *
+ * @param event
+ * @param context
+ * @param callback
+ * @returns {Promise<void>}
+ */
+export const findList: lambda.ProxyHandler = async (
+  event: lambda.APIGatewayEvent,
+  context: lambda.Context,
+  callback: lambda.Callback,
+): Promise<void> => {
+  try {
+    const requestObject = extractQueryStringParams(event);
+
+    const validateResultObject = TodoValidationService.findListValidate(requestObject);
+    if (Object.keys(validateResultObject).length !== 0) {
+      const validationErrorResponse = new ValidationErrorResponse(validateResultObject);
+      callback(undefined, validationErrorResponse.getResponse());
+      return;
+    }
+
+    const todoRepository = new TodoRepository(dynamoDbDocumentClient);
+    const findListResponse = await todoRepository.findList(requestObject);
+
+    const successResponse = new SuccessResponse(findListResponse, 200);
+
+    callback(undefined, successResponse.getResponse());
+  } catch (error) {
+    const errorResponse = new ErrorResponse(error);
+    const response = errorResponse.getResponse();
+
+    callback(undefined, response);
+  }
+};
+
+/**
  * APIGatewayEventからリクエストパラメータを取り出す
  *
  * @param event
@@ -113,4 +151,26 @@ const extractRequest = (event: lambda.APIGatewayEvent): TodoRequest.FindRequest 
   return {
     id: "",
   };
+};
+
+/**
+ * APIGatewayEventからQueryパラメータを取り出す
+ *
+ * @param event
+ * @returns {{limit: number}}
+ */
+const extractQueryStringParams = (event: lambda.APIGatewayEvent): TodoRequest.FindListRequest => {
+  const defaultParams = {
+    limit: 10,
+  };
+
+  if (event.queryStringParameters == null) {
+    return defaultParams;
+  }
+
+  if (event.queryStringParameters.limit == null) {
+    return defaultParams;
+  }
+
+  return {limit: parseInt(event.queryStringParameters.limit, 10)};
 };

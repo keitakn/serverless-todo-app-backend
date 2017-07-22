@@ -2,6 +2,7 @@ import {DocumentClient} from "aws-sdk/lib/dynamodb/document_client";
 import InternalServerError from "../errors/InternalServerError";
 import {Logger} from "../infrastructures/Logger";
 import GetItemOutput = DocumentClient.GetItemOutput;
+import {TodoRequest} from "../domain/TodoRequest";
 import {TodoResponse} from "../domain/TodoResponse";
 import NotFoundError from "../errors/NotFoundError";
 
@@ -76,6 +77,56 @@ export default class TodoRepository {
           };
 
           return resolve(findResponse);
+        })
+        .catch((error) => {
+          Logger.critical(error);
+          return reject(
+            new InternalServerError(error.message),
+          );
+        });
+    });
+  }
+
+  /**
+   * TODOリストを取得する
+   *
+   * @returns {Promise<TodoResponse.FindListResponse>}
+   */
+  public findList(request: TodoRequest.FindListRequest): Promise<TodoResponse.FindListResponse> {
+    return new Promise<TodoResponse.FindListResponse>((resolve, reject) => {
+      const params = {
+        TableName: this.getTableName(),
+        Limit: request.limit,
+      };
+
+      // scan() はパフォーマンス、コストの点から出来る限り利用すべきではない（本件はサンプルプロジェクトなので使っている）
+      // 実開発では出来る限り query() で解決出来るようなデータ構造を設計するべき
+      this.dynamoDbDocumentClient
+        .scan(params)
+        .promise()
+        .then((scanOutput) => {
+          if (scanOutput.Items == null || scanOutput.Count == null) {
+            return reject(new NotFoundError());
+          }
+
+          const todoItems = scanOutput.Items.map((todo) => {
+            const findResponse: TodoResponse.FindResponse = {
+              id: todo["id"],
+              title: todo["title"],
+              isCompleted: todo["isCompleted"],
+              createdAt: todo["createdAt"],
+              updatedAt: todo["updatedAt"],
+            };
+
+            return findResponse;
+          });
+
+          const todoListResponse: TodoResponse.FindListResponse = {
+            items: todoItems,
+            count: scanOutput.Count,
+          };
+
+          return resolve(todoListResponse);
         })
         .catch((error) => {
           Logger.critical(error);

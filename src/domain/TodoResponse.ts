@@ -18,7 +18,7 @@ export namespace TodoResponse {
   }
 
   /**
-   * TODO取得APIのリクエスト型
+   * TODO取得APIのレスポンス型
    */
   export interface FindResponse {
     id: string;
@@ -26,5 +26,13 @@ export namespace TodoResponse {
     isCompleted: boolean;
     createdAt: number;
     updatedAt: number;
+  }
+
+  /**
+   * TODOリストAPIのレスポンス型
+   */
+  export interface FindListResponse {
+    items: FindResponse[];
+    count: number;
   }
 }

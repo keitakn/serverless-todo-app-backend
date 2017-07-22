@@ -1,6 +1,7 @@
 import {AxiosResponse} from "axios";
 import axios from "axios";
 import {TestUtil} from "./TestUtil";
+import {TodoRequest} from "../../domain/TodoRequest";
 
 /**
  * TodoTest
@@ -70,6 +71,39 @@ export namespace TodoTest {
 
         const baseUri = TestUtil.createTodoApiUri();
         const requestUri = `${baseUri}/todo/${id}`;
+
+        const requestConfig = {
+          headers,
+        };
+
+        axios.get(
+          requestUri,
+          requestConfig,
+        ).then((response: AxiosResponse) => {
+          resolve(response);
+        }).catch((error) => {
+          reject(error);
+        });
+      });
+    }
+
+    /**
+     * TODOを全件取得する
+     *
+     * @returns {Promise<AxiosResponse>}
+     */
+    public static findTodoList(request?: TodoRequest.FindListRequest): Promise<AxiosResponse> {
+      return new Promise<AxiosResponse>((resolve, reject) => {
+        const headers = {
+          "Content-type": "application/json",
+        };
+
+        const baseUri = TestUtil.createTodoApiUri();
+        let requestUri = `${baseUri}/todo`;
+
+        if (request != null && "limit" in request) {
+          requestUri = requestUri + `?limit=${request.limit}`;
+        }
 
         const requestConfig = {
           headers,
