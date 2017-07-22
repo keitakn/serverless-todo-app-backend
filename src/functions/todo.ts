@@ -114,6 +114,13 @@ export const findList: lambda.ProxyHandler = async (
   try {
     const requestObject = extractQueryStringParams(event);
 
+    const validateResultObject = TodoValidationService.findListValidate(requestObject);
+    if (Object.keys(validateResultObject).length !== 0) {
+      const validationErrorResponse = new ValidationErrorResponse(validateResultObject);
+      callback(undefined, validationErrorResponse.getResponse());
+      return;
+    }
+
     const todoRepository = new TodoRepository(dynamoDbDocumentClient);
     const findListResponse = await todoRepository.findList(requestObject);
 

@@ -69,4 +69,25 @@ describe("findTodoListTest", () => {
       assert.fail(error.response.data);
     });
   });
+
+  /**
+   * 異常系テストケース
+   *
+   * バリデーションエラー
+   */
+  it("testFailValidation", () => {
+    return (async () => {
+      const request = {
+        limit: 9999,
+      };
+
+      const response = await TodoTest.ApiClient.findTodoList(request);
+      assert.fail(response.data);
+    })().catch((error) => {
+      assert.equal(error.response.status, 422, "ステータスコードのチェック");
+      assert.equal(error.response.data.code, 422, "エラーコードのチェック");
+      assert.equal(error.response.data.message, "Unprocessable Entity", "エラーメッセージのチェック");
+      assert.ok(error.response.data.errors.limit, "limitがerrorに含まれている事をチェック");
+    });
+  });
 });
