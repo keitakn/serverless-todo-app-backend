@@ -86,4 +86,43 @@ export default class TodoValidationService {
 
     return domainValidator.doValidate(request);
   }
+
+  /**
+   * TODO変更APIのバリデーション
+   *
+   * @param request
+   * @returns {{[p: string]: string}}
+   */
+  public static updateValidate(request: any): {[name: string]: string}  {
+    const scheme = {
+      type: "object",
+      required: [
+        "id",
+        "title",
+        "isCompleted",
+      ],
+      properties: {
+        id: {
+          type: "string",
+          minLength: 36,
+          maxLength: 36,
+        },
+        title: {
+          type: "string",
+          minLength: 3,
+          maxLength: 20,
+        },
+        isCompleted: {
+          type: "boolean",
+          minLength: 4,
+          maxLength: 5,
+        },
+      },
+      additionalProperties: false,
+    };
+
+    const domainValidator = new DomainValidator(scheme);
+
+    return domainValidator.doValidate(request);
+  }
 }

@@ -9,6 +9,7 @@ import ValidationErrorResponse from "../domain/ValidationErrorResponse";
 import AwsSdkFactory from "../factories/AwsSdkFactory";
 import RequestFactory from "../factories/RequestFactory";
 import TodoRepository from "../repositories/TodoRepository";
+import UpdateParams = TodoRequest.UpdateParams;
 
 sourceMapSupport.install();
 
@@ -136,6 +137,55 @@ export const findList: lambda.ProxyHandler = async (
 };
 
 /**
+ * TODOを変更する
+ *
+ * @param {APIGatewayEvent} event
+ * @param {Context} context
+ * @param {Callback} callback
+ * @returns {Promise<void>}
+ */
+export const update: lambda.ProxyHandler = async (
+  event: lambda.APIGatewayEvent,
+  context: lambda.Context,
+  callback: lambda.Callback,
+): Promise<void> => {
+  try {
+    const requestObject: TodoRequest.UpdateRequest = createUpdateRequest(event);
+
+    const validateResultObject = TodoValidationService.updateValidate(requestObject);
+    if (Object.keys(validateResultObject).length !== 0) {
+      const validationErrorResponse = new ValidationErrorResponse(validateResultObject);
+      callback(undefined, validationErrorResponse.getResponse());
+      return;
+    }
+
+    const todoRepository = new TodoRepository(dynamoDbDocumentClient);
+
+    await todoRepository.find(requestObject.id);
+
+    const nowDateTime = new Date().getTime();
+
+    const updateParams: UpdateParams = {
+      id: requestObject.id,
+      title: requestObject.title,
+      isCompleted: requestObject.isCompleted,
+      updatedAt: nowDateTime,
+    };
+
+    const updateResponse = await todoRepository.update(updateParams);
+
+    const successResponse = new SuccessResponse(updateResponse, 200);
+
+    callback(undefined, successResponse.getResponse());
+  } catch (error) {
+    const errorResponse = new ErrorResponse(error);
+    const response = errorResponse.getResponse();
+
+    callback(undefined, response);
+  }
+};
+
+/**
  * APIGatewayEventからリクエストパラメータを取り出す
  *
  * @param event
@@ -173,4 +223,21 @@ const extractQueryStringParams = (event: lambda.APIGatewayEvent): TodoRequest.Fi
   }
 
   return {limit: parseInt(event.queryStringParameters.limit, 10)};
+};
+
+/**
+ * APIGatewayEventからupdate用のパラメータを生成する
+ *
+ * @param {APIGatewayEvent} event
+ * @returns {TodoRequest.UpdateRequest}
+ */
+const createUpdateRequest = (event: lambda.APIGatewayEvent): TodoRequest.UpdateRequest => {
+  const requestBody: TodoRequest.UpdateRequest = new RequestFactory(event).create();
+  const requestParams = extractRequest(event);
+
+  return {
+    id: requestParams.id,
+    title: requestBody.title,
+    isCompleted: requestBody.isCompleted,
+  };
 };

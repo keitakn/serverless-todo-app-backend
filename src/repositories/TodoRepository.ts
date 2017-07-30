@@ -5,6 +5,8 @@ import GetItemOutput = DocumentClient.GetItemOutput;
 import {TodoRequest} from "../domain/TodoRequest";
 import {TodoResponse} from "../domain/TodoResponse";
 import NotFoundError from "../errors/NotFoundError";
+import UpdateParams = TodoRequest.UpdateParams;
+import UpdateResponse = TodoResponse.UpdateResponse;
 
 /**
  * Repository
@@ -135,6 +137,30 @@ export default class TodoRepository {
           );
         });
     });
+  }
+
+  /**
+   * TODOを変更する
+   *
+   * @param {TodoRequest.UpdateParams} updateParams
+   * @returns {Promise<TodoResponse.UpdateResponse>}
+   */
+  public async update(updateParams: UpdateParams): Promise<UpdateResponse> {
+    try {
+      const params = {
+        TableName: this.getTableName(),
+        Item: updateParams,
+      };
+
+      await this.dynamoDbDocumentClient.put(params).promise();
+
+      return updateParams;
+    } catch (error) {
+      Logger.critical(error);
+      return Promise.reject(
+        new InternalServerError(error.message),
+      );
+    }
   }
 
   /**

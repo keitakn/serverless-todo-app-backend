@@ -35,4 +35,14 @@ export namespace TodoResponse {
     items: FindResponse[];
     count: number;
   }
+
+  /**
+   * TODO変更APIのレスポンス型
+   */
+  export interface UpdateResponse {
+    id: string;
+    title: string;
+    isCompleted: boolean;
+    updatedAt: number;
+  }
 }

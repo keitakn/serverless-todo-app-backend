@@ -78,6 +78,13 @@ functions:
           path: todo
           method: get
           cors: true
+  updateTodo:
+    handler: build/functions/todo.update
+    events:
+      - http:
+          path: todo/{id}
+          method: put
+          cors: true
 
 resources:
   Resources:
