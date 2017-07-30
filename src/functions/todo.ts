@@ -161,8 +161,7 @@ export const update: lambda.ProxyHandler = async (
 
     const todoRepository = new TodoRepository(dynamoDbDocumentClient);
 
-    const hoge = await todoRepository.find(requestObject.id);
-    console.log(hoge);
+    await todoRepository.find(requestObject.id);
 
     const nowDateTime = new Date().getTime();
 
