@@ -58,6 +58,42 @@ export namespace TodoTest {
     }
 
     /**
+     * TODOを変更する
+     *
+     * @param {TodoRequest.UpdateRequest} request
+     * @returns {Promise<AxiosResponse>}
+     */
+    public static updateTodo(request: TodoRequest.UpdateRequest) {
+      return new Promise<AxiosResponse>((resolve, reject) => {
+        const headers = {
+          "Content-type": "application/json",
+        };
+
+        const baseUri = TestUtil.createTodoApiUri();
+        const requestUri = `${baseUri}/todo/${request.id}`;
+
+        const requestConfig = {
+          headers,
+        };
+
+        const apiRequest = {
+          title: request.title,
+          isCompleted: request.isCompleted,
+        };
+
+        axios.put(
+          requestUri,
+          apiRequest,
+          requestConfig,
+        ).then((response: AxiosResponse) => {
+          resolve(response);
+        }).catch((error) => {
+          reject(error);
+        });
+      });
+    }
+
+    /**
      * TODOを1件取得する
      *
      * @param id

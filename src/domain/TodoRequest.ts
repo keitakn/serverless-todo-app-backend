@@ -26,4 +26,20 @@ export namespace TodoRequest {
   export interface FindListRequest {
     limit?: number;
   }
+
+  /**
+   * TODO変更APIのリクエスト型
+   */
+  export interface UpdateRequest {
+    id: string;
+    title: string;
+    isCompleted: boolean;
+  }
+
+  /**
+   * TODO変更APIのリクエスト型
+   */
+  export interface UpdateParams extends UpdateRequest {
+    updatedAt: number;
+  }
 }
