@@ -76,7 +76,7 @@ export const find: lambda.ProxyHandler = async (
   callback: lambda.Callback,
 ): Promise<void> => {
   try {
-    const requestObject =  extractRequest(event);
+    const requestObject = extractRequest(event);
 
     const validateResultObject = TodoValidationService.findValidate(requestObject);
     if (Object.keys(validateResultObject).length !== 0) {
@@ -186,6 +186,43 @@ export const update: lambda.ProxyHandler = async (
 };
 
 /**
+ * TODOを削除する
+ *
+ * @param {APIGatewayEvent} event
+ * @param {Context} context
+ * @param {Callback} callback
+ * @returns {Promise<void>}
+ */
+export const deleteTodo: lambda.ProxyHandler = async (
+  event: lambda.APIGatewayEvent,
+  context: lambda.Context,
+  callback: lambda.Callback,
+) => {
+  try {
+    const requestObject: TodoRequest.DeleteTodoRequest = createDeleteTodoRequest(event);
+
+    const validateResultObject = TodoValidationService.deleteTodoValidate(requestObject);
+    if (Object.keys(validateResultObject).length !== 0) {
+      const validationErrorResponse = new ValidationErrorResponse(validateResultObject);
+      callback(undefined, validationErrorResponse.getResponse());
+      return;
+    }
+
+    const todoRepository = new TodoRepository(dynamoDbDocumentClient);
+    await todoRepository.deleteTodo(requestObject.id);
+
+    const successResponse = new SuccessResponse({}, 204);
+
+    callback(undefined, successResponse.getResponse());
+  } catch (error) {
+    const errorResponse = new ErrorResponse(error);
+    const response = errorResponse.getResponse();
+
+    callback(undefined, response);
+  }
+};
+
+/**
  * APIGatewayEventからリクエストパラメータを取り出す
  *
  * @param event
@@ -240,4 +277,14 @@ const createUpdateRequest = (event: lambda.APIGatewayEvent): TodoRequest.UpdateR
     title: requestBody.title,
     isCompleted: requestBody.isCompleted,
   };
+};
+
+/**
+ * APIGatewayEventからdelete用のパラメータを生成する
+ *
+ * @param {APIGatewayEvent} event
+ * @returns {TodoRequest.DeleteTodoRequest}
+ */
+const createDeleteTodoRequest = (event: lambda.APIGatewayEvent): TodoRequest.DeleteTodoRequest => {
+  return extractRequest(event);
 };

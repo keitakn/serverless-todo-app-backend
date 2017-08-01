@@ -125,4 +125,31 @@ export default class TodoValidationService {
 
     return domainValidator.doValidate(request);
   }
+
+  /**
+   * TODO削除APIのバリデーション
+   *
+   * @param request
+   * @returns {Object}
+   */
+  public static deleteTodoValidate(request: any): {[name: string]: string} {
+    const scheme = {
+      type: "object",
+      required: [
+        "id",
+      ],
+      properties: {
+        id: {
+          type: "string",
+          minLength: 36,
+          maxLength: 36,
+        },
+      },
+      additionalProperties: false,
+    };
+
+    const domainValidator = new DomainValidator(scheme);
+
+    return domainValidator.doValidate(request);
+  }
 }

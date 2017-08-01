@@ -164,6 +164,30 @@ export default class TodoRepository {
   }
 
   /**
+   * TODOを削除する
+   *
+   * @param {string} id
+   * @returns {Promise<void>}
+   */
+  public async deleteTodo(id: string): Promise<void> {
+    try {
+      const params = {
+        TableName: this.getTableName(),
+        Key: {
+          id,
+        },
+      };
+
+      await this.dynamoDbDocumentClient.delete(params).promise();
+    } catch (error) {
+      Logger.critical(error);
+      return Promise.reject(
+        new InternalServerError(error.message),
+      );
+    }
+  }
+
+  /**
    * 実行環境のテーブル名を取得する
    *
    * @returns {string}
