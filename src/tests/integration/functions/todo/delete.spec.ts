@@ -40,7 +40,7 @@ describe("deleteTodoTest", () => {
    * 正常系テストケース
    * 削除が正常に完了する
    */
-  it("testSuccess", () => {
+  it("testSuccessTodoExists", () => {
     return (async () => {
       // 事前作成データが存在する事を確認する
       const beforeFindResponse = await TodoTest.ApiClient.findTodo(todoCreateResponse.id);
@@ -63,6 +63,38 @@ describe("deleteTodoTest", () => {
       assert.equal(error.response.status, 404, "ステータスコードのチェック");
       assert.equal(error.response.data.code, 404, "エラーコードのチェック");
       assert.equal(error.response.data.message, "Not Found", "エラーメッセージのチェック");
+    });
+  });
+
+  /**
+   * 正常系テストケース
+   *
+   * 指定したTODOが存在しない
+   * 削除対象が0件だったとしても正常終了する
+   */
+  it("testSuccessDoesNotExists", () => {
+    return (async () => {
+      const deleteResponse = await TodoTest.ApiClient.deleteTodo("999999999999999999aaaaaaaaaaaaaaaaaa");
+      assert.equal(deleteResponse.status, 204, "ステータスコードのチェック");
+    })().catch((error) => {
+      assert.fail(error.response.data);
+    });
+  });
+
+  /**
+   * 異常系テストケース
+   *
+   * バリデーションエラー
+   */
+  it("testFailValidation", () => {
+    return (async () => {
+      const response = await TodoTest.ApiClient.deleteTodo("abc");
+      assert.fail(response.data);
+    })().catch((error) => {
+      assert.equal(error.response.status, 422, "ステータスコードのチェック");
+      assert.equal(error.response.data.code, 422, "エラーコードのチェック");
+      assert.equal(error.response.data.message, "Unprocessable Entity", "エラーメッセージのチェック");
+      assert.ok(error.response.data.errors.id, "idがerrorに含まれている事をチェック");
     });
   });
 });
