@@ -42,4 +42,11 @@ export namespace TodoRequest {
   export interface UpdateParams extends UpdateRequest {
     updatedAt: number;
   }
+
+  /**
+   * TODO削除APIのリクエスト型
+   */
+  export interface DeleteTodoRequest {
+    id: string;
+  }
 }

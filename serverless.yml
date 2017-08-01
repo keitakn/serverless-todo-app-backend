@@ -85,6 +85,13 @@ functions:
           path: todo/{id}
           method: put
           cors: true
+  deleteTodo:
+    handler: build/functions/todo.deleteTodo
+    events:
+      - http:
+          path: todo/{id}
+          method: delete
+          cors: true
 
 resources:
   Resources:

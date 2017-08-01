@@ -155,5 +155,35 @@ export namespace TodoTest {
         });
       });
     }
+
+    /**
+     * TODOを削除する
+     *
+     * @param {string} id
+     * @returns {Promise<AxiosResponse>}
+     */
+    public static deleteTodo(id: string) {
+      return new Promise<AxiosResponse>((resolve, reject) => {
+        const headers = {
+          "Content-type": "application/json",
+        };
+
+        const baseUri = TestUtil.createTodoApiUri();
+        const requestUri = `${baseUri}/todo/${id}`;
+
+        const requestConfig = {
+          headers,
+        };
+
+        axios.delete(
+          requestUri,
+          requestConfig,
+        ).then((response: AxiosResponse) => {
+          resolve(response);
+        }).catch((error) => {
+          reject(error);
+        });
+      });
+    }
   }
 }
