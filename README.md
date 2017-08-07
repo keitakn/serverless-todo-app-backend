@@ -9,7 +9,7 @@ serverlessで作成したTODOリストアプリ用のAPI
 以下は.bash_profileへの設定例です。
 
 ```bash
-echo export TODO_API_BASE_URI=https://test999999.execute-api.us-east-1.amazonaws.com/dev >> ~/.bash_profile
+echo export TODO_API_BASE_URI=https://test999999.execute-api.ap-northeast-1.amazonaws.com/dev >> ~/.bash_profile
 source ~/.bash_profile
 ```
 
