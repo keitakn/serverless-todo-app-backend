@@ -13,10 +13,12 @@ export class TestUtil {
    * @returns {string}
    */
   public static createTodoApiUri(): string {
+    const todoApiUri = process.env.TODO_API_BASE_URI;
+
     if (process.env.IS_LOCAL) {
       return "http://localhost:3000";
     }
 
-    return process.env.TODO_API_BASE_URI;
+    return typeof todoApiUri === "string" ? todoApiUri : "";
   }
 }
