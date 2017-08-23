@@ -14,7 +14,7 @@
     "server": "tsc && serverless offline",
     "dynamodb": "serverless dynamodb start",
     "migrate": "serverless dynamodb migrate",
-    "debug": "tsc && node-debug serverless offline"
+    "debug": "tsc && node --inspect node_modules/.bin/serverless offline start"
   },
   "author": "keita-nishimoto",
   "license": "MIT",
@@ -26,7 +26,6 @@
     "@types/uuid": "^3.4.0",
     "aws-sdk": "^2.94.0",
     "mocha": "^3.5.0",
-    "node-inspector": "^1.1.1",
     "power-assert": "^1.4.4",
     "serverless": "^1.19.0",
     "serverless-dynamodb-local": "^0.2.22",
