@@ -14,7 +14,7 @@
     "server": "tsc && serverless offline",
     "dynamodb": "serverless dynamodb start",
     "migrate": "serverless dynamodb migrate",
-    "debug": "tsc && node-debug serverless offline"
+    "debug": "tsc && node --inspect node_modules/.bin/serverless offline start"
   },
   "author": "keita-nishimoto",
   "license": "MIT",
