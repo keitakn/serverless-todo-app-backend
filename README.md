@@ -60,6 +60,10 @@ yarn run test src/tests/integration/functions/todo/create.spec.ts -g testSuccess
 yarn run server
 ```
 
+もしもDebuggerを使ってデバッグを行いたい場合は `yarn run server:debug` を実行してサーバを立ち上げて下さい。
+
+[こちら](https://github.com/keita-nishimoto/aws-serverless-prototype/wiki/Local-Debugging) に載っている手順と同様にデバッグが可能です。
+
 ### ローカルサーバに対してIntegrationテスト（結合テスト）を実行する
 
 事前にローカルでDynamoDBを起動しておく必要があります。（以下の手順を実行して下さい。）
