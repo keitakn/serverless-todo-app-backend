@@ -12,10 +12,11 @@
     "test:local": "IS_LOCAL=true mocha -t 30000 --require ts-node/register",
     "test:all": "mocha -t 30000 -R nyan --require ts-node/register 'src/tests/**/*.spec.ts'",
     "test:all:local": "IS_LOCAL=true mocha -t 30000 --require ts-node/register 'src/tests/**/*.spec.ts'",
+    "dynamodb:instal": "serverless dynamodb instal",
+    "dynamodb:start": "serverless dynamodb start",
+    "dynamodb:migrate": "serverless dynamodb migrate",
     "server": "tsc && serverless offline",
-    "dynamodb": "serverless dynamodb start",
-    "migrate": "serverless dynamodb migrate",
-    "debug": "tsc && node --inspect node_modules/.bin/serverless offline start"
+    "server:debug": "tsc && node --inspect node_modules/.bin/serverless offline start"
   },
   "author": "keita-nishimoto",
   "license": "MIT",
