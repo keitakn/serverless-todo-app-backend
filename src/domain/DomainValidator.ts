@@ -1,5 +1,4 @@
-import { Validator } from 'jsonschema';
-import { Schema } from 'jsonschema';
+import { Validator, Schema } from 'jsonschema';
 
 /**
  * DomainValidator
