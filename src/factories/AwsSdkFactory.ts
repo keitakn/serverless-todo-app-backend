@@ -1,4 +1,3 @@
-import * as AWS from 'aws-sdk';
 import { DynamoDB } from 'aws-sdk';
 import DocumentClient = DynamoDB.DocumentClient;
 import Environment from '../infrastructures/Environment';
@@ -23,9 +22,9 @@ export default class AwsSdkFactory {
         endpoint: 'http://localhost:8000',
       };
 
-      return new AWS.DynamoDB.DocumentClient(documentClientOptions);
+      return new DynamoDB.DocumentClient(documentClientOptions);
     }
 
-    return new AWS.DynamoDB.DocumentClient();
+    return new DynamoDB.DocumentClient();
   }
 }
