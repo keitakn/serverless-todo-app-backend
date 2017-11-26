@@ -15,7 +15,7 @@ export class TestUtil {
   public static createTodoApiUri(): string {
     const todoApiUri = process.env.TODO_API_BASE_URI;
 
-    if (process.env.IS_LOCAL) {
+    if (process.env.IS_LOCAL != null) {
       return 'http://localhost:3000';
     }
 
