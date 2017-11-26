@@ -66,4 +66,4 @@ typings/
 
 # idea settings
 .idea
-serverless-todo-api.iml
+serverless-todo-app-backend.iml
