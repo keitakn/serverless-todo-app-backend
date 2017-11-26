@@ -6,8 +6,8 @@
   "scripts": {
     "build": "tsc",
     "deploy": "tsc && serverless deploy -v",
-    "lint": "tslint -p . -c tslint.json 'src/**/*.{ts,tsx}'",
-    "lint:fix": "tslint -p . -c tslint.json --fix 'src/**/*.{ts,tsx}'",
+    "lint": "tslint --project tsconfig.json --config tslint.json 'src/**/*.{ts,tsx}'",
+    "lint:fix": "tslint --project tsconfig.json --config tslint.json --fix 'src/**/*.{ts,tsx}'",
     "test": "mocha -t 30000 --require ts-node/register",
     "test:local": "IS_LOCAL=true mocha -t 30000 --require ts-node/register",
     "test:all": "mocha -t 30000 -R nyan --require ts-node/register 'src/tests/**/*.spec.ts'",
