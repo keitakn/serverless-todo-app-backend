@@ -62,6 +62,12 @@ yarn run server
 
 ### ローカルサーバに対してIntegrationテスト（結合テスト）を実行する
 
+事前にローカルでDynamoDBを起動しておく必要があります。（以下の手順を実行して下さい。）
+
+- `yarn run dynamodb:instal` を実行する。（最初だけでOKです。）
+- `yarn run dynamodb:start` を実行しローカルでDynamoDBを起動する。
+- `yarn run dynamodb:migrate` を実行しローカルのDynamoDBにテーブルの作成を行う。
+
 - 存在する全てのテストケースを実行する
 ```bash
 yarn run test:all:local
