@@ -17,6 +17,10 @@ export default class Environment {
       return true;
     }
 
+    if (process.env.IS_LOCAL) {
+      return true;
+    }
+
     return false;
   }
 }

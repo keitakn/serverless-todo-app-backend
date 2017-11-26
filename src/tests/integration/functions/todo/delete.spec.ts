@@ -1,6 +1,7 @@
 import * as assert from "power-assert";
 import {TodoTest} from "../../../lib/TodoTest";
 import {TodoResponse} from "../../../../domain/TodoResponse";
+import Environment from "../../../../infrastructures/Environment";
 
 /**
  * TODO削除APIのテスト
@@ -59,7 +60,12 @@ describe("deleteTodoTest", () => {
       assert.fail(findResponse);
     })().catch((error) => {
       // 該当データが削除されている事を確認する
-      assert.equal(error.response.request.path, `/dev/todo/${todoCreateResponse.id}`);
+      if (Environment.isLocal()) {
+        assert.equal(error.response.request.path, `/todo/${todoCreateResponse.id}`);
+      } else {
+        assert.equal(error.response.request.path, `/dev/todo/${todoCreateResponse.id}`);
+      }
+
       assert.equal(error.response.status, 404, "ステータスコードのチェック");
       assert.equal(error.response.data.code, 404, "エラーコードのチェック");
       assert.equal(error.response.data.message, "Not Found", "エラーメッセージのチェック");
