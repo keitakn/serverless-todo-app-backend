@@ -37,7 +37,7 @@ export namespace TodoTest {
           'Content-type': 'application/json',
         };
 
-        const baseUri = TestUtil.createTodoApiUri();
+        const baseUri = TestUtil.getTodoAppBackendUri();
         const requestUri = `${baseUri}/todo`;
 
         const requestConfig = {
@@ -68,7 +68,7 @@ export namespace TodoTest {
           'Content-type': 'application/json',
         };
 
-        const baseUri = TestUtil.createTodoApiUri();
+        const baseUri = TestUtil.getTodoAppBackendUri();
         const requestUri = `${baseUri}/todo/${request.id}`;
 
         const requestConfig = {
@@ -104,7 +104,7 @@ export namespace TodoTest {
           'Content-type': 'application/json',
         };
 
-        const baseUri = TestUtil.createTodoApiUri();
+        const baseUri = TestUtil.getTodoAppBackendUri();
         const requestUri = `${baseUri}/todo/${id}`;
 
         const requestConfig = {
@@ -133,7 +133,7 @@ export namespace TodoTest {
           'Content-type': 'application/json',
         };
 
-        const baseUri = TestUtil.createTodoApiUri();
+        const baseUri = TestUtil.getTodoAppBackendUri();
         let requestUri = `${baseUri}/todo`;
 
         if (request != null && 'limit' in request) {
@@ -167,7 +167,7 @@ export namespace TodoTest {
           'Content-type': 'application/json',
         };
 
-        const baseUri = TestUtil.createTodoApiUri();
+        const baseUri = TestUtil.getTodoAppBackendUri();
         const requestUri = `${baseUri}/todo/${id}`;
 
         const requestConfig = {
