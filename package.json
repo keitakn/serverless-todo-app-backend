@@ -1,7 +1,7 @@
 {
   "name": "serverless-todo-app-backend",
   "version": "1.0.0",
-  "description": "serverlessで作成したTODOリストアプリ用のAPI",
+  "description": "serverlessで作成したTODOリストアプリ用のバックエンドサーバ",
   "private": true,
   "scripts": {
     "build": "tsc",
