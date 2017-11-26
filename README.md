@@ -1,5 +1,5 @@
-# serverless-todo-api
-serverlessで作成したTODOリストアプリ用のAPI
+# serverless-todo-app-backend
+TODOリストアプリ用のバックエンドサーバ。
 
 ## 事前準備
 
@@ -44,14 +44,14 @@ yarn run test:all
 下記場合は `src/tests/integration/functions/todo/create.spec.ts` のみが実行対象になります。
 
 ```bash
-yarn run test -- src/tests/integration/functions/todo/create.spec.ts
+yarn run test src/tests/integration/functions/todo/create.spec.ts
 ```
 
 - 特定のテストファイル中の特定のテストケースのみを実行
 `-g` の後にテストケース名を入力します。
 
 ```bash
-yarn run test -- src/tests/integration/functions/todo/create.spec.ts -g testSuccess
+yarn run test src/tests/integration/functions/todo/create.spec.ts -g testSuccess
 ```
 
 ## ローカルサーバの起動
@@ -69,12 +69,12 @@ yarn run test:all:local
 
 - 一部のテストファイルだけを実行する
 ```bash
-yarn run test:local -- src/tests/integration/functions/todo/create.spec.ts
+yarn run test:local src/tests/integration/functions/todo/create.spec.ts
 ```
 
 - 特定のテストファイル中の特定のテストケースのみを実行
 `-g` の後にテストケース名を入力します。
 
 ```bash
-yarn run test:local -- src/tests/integration/functions/todo/create.spec.ts -g testSuccess
+yarn run test:local src/tests/integration/functions/todo/create.spec.ts -g testSuccess
 ```
