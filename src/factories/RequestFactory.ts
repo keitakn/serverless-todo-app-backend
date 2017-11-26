@@ -1,4 +1,4 @@
-import * as lambda from "aws-lambda";
+import * as lambda from 'aws-lambda';
 
 /**
  * RequestFactory

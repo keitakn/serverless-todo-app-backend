@@ -8,17 +8,18 @@
 export class TestUtil {
 
   /**
-   * APIGatewayのURIを作成する
+   * TodoAppBackendのURIを取得する
+   * 自身のURIを知りたいという状況はテストでしか利用しない想定、よってこちらに定義する
    *
    * @returns {string}
    */
-  public static createTodoApiUri(): string {
-    const todoApiUri = process.env.TODO_API_BASE_URI;
+  public static getTodoAppBackendUri(): string {
+    const uri = process.env.TODO_APP_BACKEND_BASE_URI;
 
-    if (process.env.IS_LOCAL) {
-      return "http://localhost:3000";
+    if (process.env.IS_LOCAL != null) {
+      return 'http://localhost:3000';
     }
 
-    return typeof todoApiUri === "string" ? todoApiUri : "";
+    return typeof uri === 'string' ? uri : '';
   }
 }

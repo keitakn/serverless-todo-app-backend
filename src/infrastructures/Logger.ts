@@ -15,7 +15,7 @@ export class Logger {
    * @param value
    */
   public static emergency(value: any) {
-    const logLevel = "Emergency".toUpperCase();
+    const logLevel = 'Emergency'.toUpperCase();
     console.trace(logLevel, value);
   }
 
@@ -26,7 +26,7 @@ export class Logger {
    * @param value
    */
   public static alert(value: any) {
-    const logLevel = "Alert".toUpperCase();
+    const logLevel = 'Alert'.toUpperCase();
     console.trace(logLevel, value);
   }
 
@@ -37,7 +37,7 @@ export class Logger {
    * @param value
    */
   public static critical(value: any) {
-    const logLevel = "Critical".toUpperCase();
+    const logLevel = 'Critical'.toUpperCase();
     console.trace(logLevel, value);
   }
 
@@ -48,7 +48,7 @@ export class Logger {
    * @param value
    */
   public static error(value: any) {
-    const logLevel = "Error".toUpperCase();
+    const logLevel = 'Error'.toUpperCase();
     console.trace(logLevel, value);
   }
 
@@ -59,7 +59,7 @@ export class Logger {
    * @param value
    */
   public static warning(value: any) {
-    const logLevel = "Warning".toUpperCase();
+    const logLevel = 'Warning'.toUpperCase();
     console.trace(logLevel, value);
   }
 
@@ -69,7 +69,7 @@ export class Logger {
    * @param value
    */
   public static notice(value: any) {
-    const logLevel = "Notice".toUpperCase();
+    const logLevel = 'Notice'.toUpperCase();
     console.trace(logLevel, value);
   }
 
@@ -79,7 +79,7 @@ export class Logger {
    * @param value
    */
   public static informational(value: any) {
-    const logLevel = "Informational".toUpperCase();
+    const logLevel = 'Informational'.toUpperCase();
     console.trace(logLevel, value);
   }
 
@@ -89,7 +89,7 @@ export class Logger {
    * @param value
    */
   public static debug(value: any) {
-    const logLevel = "Debug".toUpperCase();
+    const logLevel = 'Debug'.toUpperCase();
     console.trace(logLevel, value);
   }
 }

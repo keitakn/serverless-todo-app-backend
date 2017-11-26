@@ -1,5 +1,5 @@
-import * as lambda from "aws-lambda";
-import {isUndefined} from "util";
+import * as lambda from 'aws-lambda';
+import { isUndefined } from 'util';
 
 /**
  * ErrorResponse
@@ -105,15 +105,15 @@ export default class ErrorResponse {
     const defaultStatusCode = 500;
     const defaultErrorCode  = defaultStatusCode;
 
-    if (isUndefined(this.errorCode) === true) {
+    if (isUndefined(this.errorCode)) {
       this._errorCode = defaultErrorCode;
     }
 
-    if (isUndefined(this.errorMessage) === true) {
-      this._errorMessage = "Internal Server Error";
+    if (isUndefined(this.errorMessage)) {
+      this._errorMessage = 'Internal Server Error';
     }
 
-    if (isUndefined(this.statusCode) === true) {
+    if (isUndefined(this.statusCode)) {
       this._statusCode = defaultStatusCode;
     }
 
@@ -125,7 +125,7 @@ export default class ErrorResponse {
     const response = {
       statusCode: this.statusCode,
       headers: {
-        "Access-Control-Allow-Origin" : "*",
+        'Access-Control-Allow-Origin' : '*',
       },
       body: JSON.stringify(responseBody),
     };
@@ -138,7 +138,7 @@ export default class ErrorResponse {
    */
   private setErrorInfo() {
     for (const key of Object.keys(this.errorConstant)) {
-      if (isUndefined(this.error.name) === false) {
+      if (!isUndefined(this.error.name)) {
         if (key === this.error.name) {
           this.setBusinessLogicErrorInfo();
           return;
@@ -154,8 +154,8 @@ export default class ErrorResponse {
    */
   private setBusinessLogicErrorInfo() {
     const errorClassName = this.error.name;
-    this._statusCode = this.errorConstant[errorClassName]["statusCode"];
-    this._errorCode = this.errorConstant[errorClassName]["errorCode"];
+    this._statusCode = this.errorConstant[errorClassName]['statusCode'];
+    this._errorCode = this.errorConstant[errorClassName]['errorCode'];
     this._errorMessage = this.error.message;
   }
 
@@ -165,6 +165,6 @@ export default class ErrorResponse {
   private setUnexpectedErrorInfo() {
     this._statusCode = 500;
     this._errorCode = 500;
-    this._errorMessage = "Internal Server Error";
+    this._errorMessage = 'Internal Server Error';
   }
 }

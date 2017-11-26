@@ -11,8 +11,8 @@ export default class InternalServerError extends Error {
    *
    * @param message
    */
-  constructor(message: string = "Internal Server Error") {
+  constructor(message: string = 'Internal Server Error') {
     super(message);
-    this.name = "InternalServerError";
+    this.name = 'InternalServerError';
   }
 }

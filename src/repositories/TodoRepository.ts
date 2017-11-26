@@ -1,10 +1,10 @@
-import {DocumentClient} from "aws-sdk/lib/dynamodb/document_client";
-import InternalServerError from "../errors/InternalServerError";
-import {Logger} from "../infrastructures/Logger";
+import { DocumentClient } from 'aws-sdk/lib/dynamodb/document_client';
+import InternalServerError from '../errors/InternalServerError';
+import { Logger } from '../infrastructures/Logger';
 import GetItemOutput = DocumentClient.GetItemOutput;
-import {TodoRequest} from "../domain/TodoRequest";
-import {TodoResponse} from "../domain/TodoResponse";
-import NotFoundError from "../errors/NotFoundError";
+import { TodoRequest } from '../domain/TodoRequest';
+import { TodoResponse } from '../domain/TodoResponse';
+import NotFoundError from '../errors/NotFoundError';
 import UpdateParams = TodoRequest.UpdateParams;
 import UpdateResponse = TodoResponse.UpdateResponse;
 
@@ -71,11 +71,11 @@ export default class TodoRepository {
           }
 
           const findResponse: TodoResponse.FindResponse = {
-            id: getItemOutput.Item["id"],
-            title: getItemOutput.Item["title"],
-            isCompleted: getItemOutput.Item["isCompleted"],
-            createdAt: getItemOutput.Item["createdAt"],
-            updatedAt: getItemOutput.Item["updatedAt"],
+            id: getItemOutput.Item['id'],
+            title: getItemOutput.Item['title'],
+            isCompleted: getItemOutput.Item['isCompleted'],
+            createdAt: getItemOutput.Item['createdAt'],
+            updatedAt: getItemOutput.Item['updatedAt'],
           };
 
           return resolve(findResponse);
@@ -113,11 +113,11 @@ export default class TodoRepository {
 
           const todoItems = scanOutput.Items.map((todo) => {
             const findResponse: TodoResponse.FindResponse = {
-              id: todo["id"],
-              title: todo["title"],
-              isCompleted: todo["isCompleted"],
-              createdAt: todo["createdAt"],
-              updatedAt: todo["updatedAt"],
+              id: todo['id'],
+              title: todo['title'],
+              isCompleted: todo['isCompleted'],
+              createdAt: todo['createdAt'],
+              updatedAt: todo['updatedAt'],
             };
 
             return findResponse;
@@ -195,7 +195,7 @@ export default class TodoRepository {
   private getTableName(): string {
     const tableName = process.env.TODOS_TABLE_NAME;
 
-    return typeof tableName === "string" ? tableName : "";
+    return typeof tableName === 'string' ? tableName : '';
   }
 }
 

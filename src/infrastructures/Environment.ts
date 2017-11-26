@@ -13,7 +13,11 @@ export default class Environment {
    */
   public static isLocal(): boolean {
 
-    if (process.env.IS_OFFLINE) {
+    if (process.env.IS_OFFLINE != null) {
+      return true;
+    }
+
+    if (process.env.IS_LOCAL != null) {
       return true;
     }
 

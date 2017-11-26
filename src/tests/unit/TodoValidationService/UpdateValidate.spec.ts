@@ -1,18 +1,18 @@
-import * as assert from "power-assert";
-import TodoValidationService from "../../../domain/TodoValidationService";
+import * as assert from 'power-assert';
+import TodoValidationService from '../../../domain/TodoValidationService';
 
 /**
  * TodoValidationService.updateValidateのテスト
  */
-describe("UpdateValidate", () => {
+describe('UpdateValidate', () => {
 
   /**
    * バリデーションテスト
    * 必須パラメータが設定されていない
    */
-  it("testValidationUnsetRequiredParams", () => {
+  it('testValidationUnsetRequiredParams', () => {
     const request = {
-      foo: "bar",
+      foo: 'bar',
     };
 
     const validateResultObject = TodoValidationService.updateValidate(request);
@@ -39,23 +39,23 @@ describe("UpdateValidate", () => {
    * バリデーションテスト
    * パラメータの指定は行うが、各値にはバリデーションが通らない値を指定
    */
-  it("testValidationSetParams", () => {
+  it('testValidationSetParams', () => {
     const requests = [
       {
         // 許可されている最小値より小さい値を指定
-        id: "2443f38f-8a69-4525-b2d1-d5da482764d",
+        id: '2443f38f-8a69-4525-b2d1-d5da482764d',
         // 許可されている最小値より小さい値を指定
-        title: "aa",
+        title: 'aa',
         // 許可されている最小値より小さい値を指定
-        isCompleted: "tru"
+        isCompleted: 'tru',
       },
       {
         // 許可されている最大値より大きい値を指定
-        id: "2443f38f-8a69-4525-b2d1-d5da482764d12",
+        id: '2443f38f-8a69-4525-b2d1-d5da482764d12',
         // 許可されている最大値より大きい値を指定
-        title: "あああああああああああああああああああああ",
+        title: 'あああああああああああああああああああああ',
         // 許可されている最大値より大きい値を指定
-        isCompleted: "false1"
+        isCompleted: 'false1',
       },
       {
         // nullを指定
@@ -65,9 +65,9 @@ describe("UpdateValidate", () => {
       },
       {
         // 空文字を指定
-        id: "",
-        title: "",
-        isCompleted: "",
+        id: '',
+        title: '',
+        isCompleted: '',
       },
     ];
 
@@ -84,10 +84,10 @@ describe("UpdateValidate", () => {
    * バリデーションテスト
    * バリデーション結果にエラーが1つも含まれない場合
    */
-  it("testValidationNotContainsError", () => {
+  it('testValidationNotContainsError', () => {
     const request = {
-      id: "2443f38f-8a69-4525-b2d1-d5da482764d1",
-      title: "旅行の予約をする。",
+      id: '2443f38f-8a69-4525-b2d1-d5da482764d1',
+      title: '旅行の予約をする。',
       isCompleted: true,
     };
 

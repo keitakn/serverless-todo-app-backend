@@ -1,16 +1,10 @@
-import * as assert from "power-assert";
-import {TodoTest} from "../../../lib/TodoTest";
-import {TodoResponse} from "../../../../domain/TodoResponse";
+import * as assert from 'power-assert';
+import { TodoTest } from '../../../lib/TodoTest';
 
 /**
  * TODOリスト取得APIのテスト
  */
-describe("findTodoListTest", () => {
-
-  /**
-   * テストに利用するTODOオブジェクト
-   */
-  let todoCreateResponse: TodoResponse.CreateResponse;
+describe('findTodoListTest', () => {
 
   /**
    * 事前にTODOを登録しておく
@@ -18,18 +12,10 @@ describe("findTodoListTest", () => {
   beforeEach(() => {
     return (async () => {
       const request = {
-        title: "猫にご飯をあげる。",
+        title: '猫にご飯をあげる。',
       };
 
-      const response = await TodoTest.ApiClient.createTodo(request);
-
-      todoCreateResponse = {
-        id: response.data.id,
-        title: response.data.title,
-        isCompleted: response.data.isCompleted,
-        createdAt: response.data.createdAt,
-        updatedAt: response.data.updatedAt,
-      };
+      await TodoTest.ApiClient.createTodo(request);
 
     })().catch((error) => {
       assert.fail(error.response.data);
@@ -40,16 +26,16 @@ describe("findTodoListTest", () => {
    * 正常系テストケース
    * Queryパラメータを指定する
    */
-  it("testSuccessSetQueryParams", () => {
+  it('testSuccessSetQueryParams', () => {
     return (async () => {
       const request = {
         limit: 1,
       };
 
       const response = await TodoTest.ApiClient.findTodoList(request);
-      assert.equal(response.status, 200, "ステータスコードのチェック");
-      assert.equal(response.data.count, 1, "件数のチェック");
-      assert.ok(response.data.items, "itemsが設定されている事をチェック");
+      assert.equal(response.status, 200, 'ステータスコードのチェック');
+      assert.equal(response.data.count, 1, '件数のチェック');
+      assert.ok(response.data.items, 'itemsが設定されている事をチェック');
     })().catch((error) => {
       assert.fail(error.response.data);
     });
@@ -59,12 +45,12 @@ describe("findTodoListTest", () => {
    * 正常系テストケース
    * Queryパラメータを指定しない
    */
-  it("testSuccessNoSetQueryParams", () => {
+  it('testSuccessNoSetQueryParams', () => {
     return (async () => {
       const response = await TodoTest.ApiClient.findTodoList();
-      assert.equal(response.status, 200, "ステータスコードのチェック");
-      assert.ok(response.data.count, "countが設定されている事をチェック");
-      assert.ok(response.data.items, "itemsが設定されている事をチェック");
+      assert.equal(response.status, 200, 'ステータスコードのチェック');
+      assert.ok(response.data.count, 'countが設定されている事をチェック');
+      assert.ok(response.data.items, 'itemsが設定されている事をチェック');
     })().catch((error) => {
       assert.fail(error.response.data);
     });
@@ -75,7 +61,7 @@ describe("findTodoListTest", () => {
    *
    * バリデーションエラー
    */
-  it("testFailValidation", () => {
+  it('testFailValidation', () => {
     return (async () => {
       const request = {
         limit: 9999,
@@ -84,10 +70,10 @@ describe("findTodoListTest", () => {
       const response = await TodoTest.ApiClient.findTodoList(request);
       assert.fail(response.data);
     })().catch((error) => {
-      assert.equal(error.response.status, 422, "ステータスコードのチェック");
-      assert.equal(error.response.data.code, 422, "エラーコードのチェック");
-      assert.equal(error.response.data.message, "Unprocessable Entity", "エラーメッセージのチェック");
-      assert.ok(error.response.data.errors.limit, "limitがerrorに含まれている事をチェック");
+      assert.equal(error.response.status, 422, 'ステータスコードのチェック');
+      assert.equal(error.response.data.code, 422, 'エラーコードのチェック');
+      assert.equal(error.response.data.message, 'Unprocessable Entity', 'エラーメッセージのチェック');
+      assert.ok(error.response.data.errors.limit, 'limitがerrorに含まれている事をチェック');
     });
   });
 });

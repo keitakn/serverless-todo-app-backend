@@ -1,7 +1,6 @@
-import {AxiosResponse} from "axios";
-import axios from "axios";
-import {TestUtil} from "./TestUtil";
-import {TodoRequest} from "../../domain/TodoRequest";
+import axios, { AxiosResponse } from 'axios';
+import { TestUtil } from './TestUtil';
+import { TodoRequest } from '../../domain/TodoRequest';
 
 /**
  * TodoTest
@@ -35,10 +34,10 @@ export namespace TodoTest {
     public static createTodo(request: CreateTodoRequest): Promise<AxiosResponse> {
       return new Promise<AxiosResponse>((resolve, reject) => {
         const headers = {
-          "Content-type": "application/json",
+          'Content-type': 'application/json',
         };
 
-        const baseUri = TestUtil.createTodoApiUri();
+        const baseUri = TestUtil.getTodoAppBackendUri();
         const requestUri = `${baseUri}/todo`;
 
         const requestConfig = {
@@ -66,10 +65,10 @@ export namespace TodoTest {
     public static updateTodo(request: TodoRequest.UpdateRequest) {
       return new Promise<AxiosResponse>((resolve, reject) => {
         const headers = {
-          "Content-type": "application/json",
+          'Content-type': 'application/json',
         };
 
-        const baseUri = TestUtil.createTodoApiUri();
+        const baseUri = TestUtil.getTodoAppBackendUri();
         const requestUri = `${baseUri}/todo/${request.id}`;
 
         const requestConfig = {
@@ -102,10 +101,10 @@ export namespace TodoTest {
     public static findTodo(id: string): Promise<AxiosResponse> {
       return new Promise<AxiosResponse>((resolve, reject) => {
         const headers = {
-          "Content-type": "application/json",
+          'Content-type': 'application/json',
         };
 
-        const baseUri = TestUtil.createTodoApiUri();
+        const baseUri = TestUtil.getTodoAppBackendUri();
         const requestUri = `${baseUri}/todo/${id}`;
 
         const requestConfig = {
@@ -131,13 +130,13 @@ export namespace TodoTest {
     public static findTodoList(request?: TodoRequest.FindListRequest): Promise<AxiosResponse> {
       return new Promise<AxiosResponse>((resolve, reject) => {
         const headers = {
-          "Content-type": "application/json",
+          'Content-type': 'application/json',
         };
 
-        const baseUri = TestUtil.createTodoApiUri();
+        const baseUri = TestUtil.getTodoAppBackendUri();
         let requestUri = `${baseUri}/todo`;
 
-        if (request != null && "limit" in request) {
+        if (request != null && 'limit' in request) {
           requestUri = requestUri + `?limit=${request.limit}`;
         }
 
@@ -165,10 +164,10 @@ export namespace TodoTest {
     public static deleteTodo(id: string) {
       return new Promise<AxiosResponse>((resolve, reject) => {
         const headers = {
-          "Content-type": "application/json",
+          'Content-type': 'application/json',
         };
 
-        const baseUri = TestUtil.createTodoApiUri();
+        const baseUri = TestUtil.getTodoAppBackendUri();
         const requestUri = `${baseUri}/todo/${id}`;
 
         const requestConfig = {

@@ -1,18 +1,18 @@
-import * as assert from "power-assert";
-import TodoValidationService from "../../../domain/TodoValidationService";
+import * as assert from 'power-assert';
+import TodoValidationService from '../../../domain/TodoValidationService';
 
 /**
  * TodoValidationService.findListValidateのテスト
  */
-describe("FindListValidate", () => {
+describe('FindListValidate', () => {
 
   /**
    * バリデーションテスト
    * 許可していないキーが指定されている
    */
-  it("testValidationPramsNotArrowed", () => {
+  it('testValidationPramsNotArrowed', () => {
     const request = {
-      foo: "bar",
+      foo: 'bar',
     };
 
     const validateResultObject = TodoValidationService.findListValidate(request);
@@ -27,7 +27,7 @@ describe("FindListValidate", () => {
    * バリデーションテスト
    * パラメータの指定は行うが、各値にはバリデーションが通らない値を指定
    */
-  it("testValidationSetParams", () => {
+  it('testValidationSetParams', () => {
     const requests = [
       {
         // 許可されている最小値より小さい値を指定
@@ -43,7 +43,7 @@ describe("FindListValidate", () => {
       },
       {
         // 空文字を指定
-        limit: "",
+        limit: '',
       },
     ];
 
@@ -60,7 +60,7 @@ describe("FindListValidate", () => {
    * バリデーションテスト
    * バリデーション結果にエラーが1つも含まれない場合
    */
-  it("testValidationNotContainsError", () => {
+  it('testValidationNotContainsError', () => {
     const request = {
       limit: 2,
     };

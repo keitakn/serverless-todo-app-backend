@@ -11,8 +11,8 @@ export default class NotFoundError extends Error {
    *
    * @param message
    */
-  constructor(message: string = "Not Found") {
+  constructor(message: string = 'Not Found') {
     super(message);
-    this.name = "NotFoundError";
+    this.name = 'NotFoundError';
   }
 }

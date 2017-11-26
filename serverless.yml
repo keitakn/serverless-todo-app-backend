@@ -1,4 +1,4 @@
-service: serverless-todo-api
+service: serverless-todo-app-backend
 
 plugins:
   - serverless-offline
