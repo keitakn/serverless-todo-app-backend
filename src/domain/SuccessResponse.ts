@@ -1,4 +1,4 @@
-import * as lambda from "aws-lambda";
+import * as lambda from 'aws-lambda';
 
 /**
  * SuccessResponse
@@ -18,7 +18,7 @@ export default class SuccessResponse {
   constructor(
     private _responseBody: any,
     private _statusCode: number = 200,
-    private _headers = {"Access-Control-Allow-Origin": "*"}) {
+    private _headers = { 'Access-Control-Allow-Origin': '*' }) {
   }
 
   /**

@@ -1,14 +1,14 @@
-import * as lambda from "aws-lambda";
-import * as sourceMapSupport from "source-map-support";
-import * as uuidV4 from "uuid/v4";
-import ErrorResponse from "../domain/ErrorResponse";
-import SuccessResponse from "../domain/SuccessResponse";
-import {TodoRequest} from "../domain/TodoRequest";
-import TodoValidationService from "../domain/TodoValidationService";
-import ValidationErrorResponse from "../domain/ValidationErrorResponse";
-import AwsSdkFactory from "../factories/AwsSdkFactory";
-import RequestFactory from "../factories/RequestFactory";
-import TodoRepository from "../repositories/TodoRepository";
+import * as lambda from 'aws-lambda';
+import * as sourceMapSupport from 'source-map-support';
+import * as uuidV4 from 'uuid/v4';
+import ErrorResponse from '../domain/ErrorResponse';
+import SuccessResponse from '../domain/SuccessResponse';
+import { TodoRequest } from '../domain/TodoRequest';
+import TodoValidationService from '../domain/TodoValidationService';
+import ValidationErrorResponse from '../domain/ValidationErrorResponse';
+import AwsSdkFactory from '../factories/AwsSdkFactory';
+import RequestFactory from '../factories/RequestFactory';
+import TodoRepository from '../repositories/TodoRepository';
 import UpdateParams = TodoRequest.UpdateParams;
 
 sourceMapSupport.install();
@@ -236,7 +236,7 @@ const extractRequest = (event: lambda.APIGatewayEvent): TodoRequest.FindRequest 
   }
 
   return {
-    id: "",
+    id: '',
   };
 };
 
@@ -259,7 +259,7 @@ const extractQueryStringParams = (event: lambda.APIGatewayEvent): TodoRequest.Fi
     return defaultParams;
   }
 
-  return {limit: parseInt(event.queryStringParameters.limit, 10)};
+  return { limit: parseInt(event.queryStringParameters.limit, 10) };
 };
 
 /**

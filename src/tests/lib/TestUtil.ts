@@ -16,9 +16,9 @@ export class TestUtil {
     const todoApiUri = process.env.TODO_API_BASE_URI;
 
     if (process.env.IS_LOCAL) {
-      return "http://localhost:3000";
+      return 'http://localhost:3000';
     }
 
-    return typeof todoApiUri === "string" ? todoApiUri : "";
+    return typeof todoApiUri === 'string' ? todoApiUri : '';
   }
 }

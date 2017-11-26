@@ -11,8 +11,8 @@ export default class ForbiddenError extends Error {
    *
    * @param message
    */
-  constructor(message: string = "Forbidden") {
+  constructor(message: string = 'Forbidden') {
     super(message);
-    this.name = "ForbiddenError";
+    this.name = 'ForbiddenError';
   }
 }

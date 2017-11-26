@@ -1,18 +1,18 @@
-import * as assert from "power-assert";
-import TodoValidationService from "../../../domain/TodoValidationService";
+import * as assert from 'power-assert';
+import TodoValidationService from '../../../domain/TodoValidationService';
 
 /**
  * TodoValidationService.findValidateのテスト
  */
-describe("FindValidate", () => {
+describe('FindValidate', () => {
 
   /**
    * バリデーションテスト
    * 必須パラメータが設定されていない
    */
-  it("testValidationUnsetRequiredParams", () => {
+  it('testValidationUnsetRequiredParams', () => {
     const request = {
-      foo: "bar",
+      foo: 'bar',
     };
 
     const validateResultObject = TodoValidationService.findValidate(request);
@@ -31,15 +31,15 @@ describe("FindValidate", () => {
    * バリデーションテスト
    * パラメータの指定は行うが、各値にはバリデーションが通らない値を指定
    */
-  it("testValidationSetParams", () => {
+  it('testValidationSetParams', () => {
     const requests = [
       {
         // 許可されている最小値より小さい値を指定
-        id: "2443f38f-8a69-4525-b2d1-d5da482764d",
+        id: '2443f38f-8a69-4525-b2d1-d5da482764d',
       },
       {
         // 許可されている最大値より大きい値を指定
-        id: "2443f38f-8a69-4525-b2d1-d5da482764d12",
+        id: '2443f38f-8a69-4525-b2d1-d5da482764d12',
       },
       {
         // nullを指定
@@ -47,7 +47,7 @@ describe("FindValidate", () => {
       },
       {
         // 空文字を指定
-        id: "",
+        id: '',
       },
     ];
 
@@ -64,9 +64,9 @@ describe("FindValidate", () => {
    * バリデーションテスト
    * バリデーション結果にエラーが1つも含まれない場合
    */
-  it("testValidationNotContainsError", () => {
+  it('testValidationNotContainsError', () => {
     const request = {
-      id: "2443f38f-8a69-4525-b2d1-d5da482764d1",
+      id: '2443f38f-8a69-4525-b2d1-d5da482764d1',
     };
 
     const validateResultObject = TodoValidationService.findValidate(request);

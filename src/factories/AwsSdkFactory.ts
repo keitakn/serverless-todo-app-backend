@@ -1,7 +1,7 @@
-import * as AWS from "aws-sdk";
-import {DynamoDB} from "aws-sdk";
+import * as AWS from 'aws-sdk';
+import { DynamoDB } from 'aws-sdk';
 import DocumentClient = DynamoDB.DocumentClient;
-import Environment from "../infrastructures/Environment";
+import Environment from '../infrastructures/Environment';
 
 /**
  * AwsSdkFactory
@@ -17,10 +17,10 @@ export default class AwsSdkFactory {
    * @returns {DynamoDB.DocumentClient|DocumentClient}
    */
   public static createDynamoDbDocumentClient(): DocumentClient {
-    if (Environment.isLocal() === true) {
+    if (Environment.isLocal()) {
       const documentClientOptions = {
-        region: "localhost",
-        endpoint: "http://localhost:8000",
+        region: 'localhost',
+        endpoint: 'http://localhost:8000',
       };
 
       return new AWS.DynamoDB.DocumentClient(documentClientOptions);

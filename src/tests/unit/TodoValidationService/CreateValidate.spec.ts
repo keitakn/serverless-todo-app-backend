@@ -1,18 +1,18 @@
-import * as assert from "power-assert";
-import TodoValidationService from "../../../domain/TodoValidationService";
+import * as assert from 'power-assert';
+import TodoValidationService from '../../../domain/TodoValidationService';
 
 /**
  * TodoValidationService.createValidateのテスト
  */
-describe("CreateValidate", () => {
+describe('CreateValidate', () => {
 
   /**
    * バリデーションテスト
    * 必須パラメータが設定されていない
    */
-  it("testValidationUnsetRequiredParams", () => {
+  it('testValidationUnsetRequiredParams', () => {
     const request = {
-      foo: "bar",
+      foo: 'bar',
     };
 
     const validateResultObject = TodoValidationService.createValidate(request);
@@ -31,15 +31,15 @@ describe("CreateValidate", () => {
    * バリデーションテスト
    * パラメータの指定は行うが、各値にはバリデーションが通らない値を指定
    */
-  it("testValidationSetParams", () => {
+  it('testValidationSetParams', () => {
     const requests = [
       {
         // 許可されている最小値より小さい値を指定
-        title: "aa",
+        title: 'aa',
       },
       {
         // 許可されている最大値より大きい値を指定
-        title: "あああああああああああああああああああああ",
+        title: 'あああああああああああああああああああああ',
       },
       {
         // nullを指定
@@ -47,7 +47,7 @@ describe("CreateValidate", () => {
       },
       {
         // 空文字を指定
-        title: "",
+        title: '',
       },
     ];
 
@@ -64,9 +64,9 @@ describe("CreateValidate", () => {
    * バリデーションテスト
    * バリデーション結果にエラーが1つも含まれない場合
    */
-  it("testValidationNotContainsError", () => {
+  it('testValidationNotContainsError', () => {
     const request = {
-      title: "旅行の予約をする。",
+      title: '旅行の予約をする。',
     };
 
     const validateResultObject = TodoValidationService.createValidate(request);

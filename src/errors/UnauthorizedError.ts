@@ -11,8 +11,8 @@ export default class UnauthorizedError extends Error {
    *
    * @param message
    */
-  constructor(message: string = "Unauthorized") {
+  constructor(message: string = 'Unauthorized') {
     super(message);
-    this.name = "UnauthorizedError";
+    this.name = 'UnauthorizedError';
   }
 }

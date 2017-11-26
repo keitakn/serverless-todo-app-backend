@@ -1,5 +1,5 @@
-import {Validator} from "jsonschema";
-import {Schema} from "jsonschema";
+import { Validator } from 'jsonschema';
+import { Schema } from 'jsonschema';
 
 /**
  * DomainValidator
@@ -57,11 +57,11 @@ export default class DomainValidator {
     }
 
     validatorResult.errors.map((validationError) => {
-      let key = "";
-      if (validationError.property === "instance") {
+      let key = '';
+      if (validationError.property === 'instance') {
         key = validationError.argument;
       } else {
-        key = validationError.property.replace("instance.", "");
+        key = validationError.property.replace('instance.', '');
       }
 
       validateResultObject[key] = validationError.message;

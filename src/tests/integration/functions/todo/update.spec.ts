@@ -1,11 +1,11 @@
-import * as assert from "power-assert";
-import {TodoTest} from "../../../lib/TodoTest";
-import {TodoResponse} from "../../../../domain/TodoResponse";
+import * as assert from 'power-assert';
+import { TodoTest } from '../../../lib/TodoTest';
+import { TodoResponse } from '../../../../domain/TodoResponse';
 
 /**
  * TODO変更APIのテスト
  */
-describe("updateTodoTest", () => {
+describe('updateTodoTest', () => {
 
   /**
    * テストに利用するTODOオブジェクト
@@ -18,7 +18,7 @@ describe("updateTodoTest", () => {
   beforeEach(() => {
     return (async () => {
       const request = {
-        title: "猫にご飯をあげる。",
+        title: '猫にご飯をあげる。',
       };
 
       const response = await TodoTest.ApiClient.createTodo(request);
@@ -39,19 +39,19 @@ describe("updateTodoTest", () => {
   /**
    * 正常系テストケース
    */
-  it("testSuccess", () => {
+  it('testSuccess', () => {
     return (async () => {
       const todoUpdateRequest = {
         id: todoCreateResponse.id,
-        title: "にゃんこの写真を撮る",
+        title: 'にゃんこの写真を撮る',
         isCompleted: true,
       };
 
       const response = await TodoTest.ApiClient.updateTodo(todoUpdateRequest);
-      assert.equal(response.status, 200, "ステータスコードのチェック");
-      assert.equal(response.data.id, todoUpdateRequest.id, "IDの型チェック");
-      assert.equal(response.data.title, todoUpdateRequest.title, "タイトルのチェック");
-      assert.equal(response.data.isCompleted, todoUpdateRequest.isCompleted, "isCompletedがtrueである事をチェック");
+      assert.equal(response.status, 200, 'ステータスコードのチェック');
+      assert.equal(response.data.id, todoUpdateRequest.id, 'IDの型チェック');
+      assert.equal(response.data.title, todoUpdateRequest.title, 'タイトルのチェック');
+      assert.equal(response.data.isCompleted, todoUpdateRequest.isCompleted, 'isCompletedがtrueである事をチェック');
     })().catch((error) => {
       assert.fail(error.response.data);
     });
@@ -62,20 +62,20 @@ describe("updateTodoTest", () => {
    *
    * 指定したTODOが存在しない
    */
-  it("testFailDoesNotExists", () => {
+  it('testFailDoesNotExists', () => {
     return (async () => {
       const todoUpdateRequest = {
-        id: "999999999999999999aaaaaaaaaaaaaaaaaa",
-        title: "にゃんこの写真を撮る",
+        id: '999999999999999999aaaaaaaaaaaaaaaaaa',
+        title: 'にゃんこの写真を撮る',
         isCompleted: true,
       };
 
       const response = await TodoTest.ApiClient.updateTodo(todoUpdateRequest);
       assert.fail(response.data);
     })().catch((error) => {
-      assert.equal(error.response.status, 404, "ステータスコードのチェック");
-      assert.equal(error.response.data.code, 404, "エラーコードのチェック");
-      assert.equal(error.response.data.message, "Not Found", "エラーメッセージのチェック");
+      assert.equal(error.response.status, 404, 'ステータスコードのチェック');
+      assert.equal(error.response.data.code, 404, 'エラーコードのチェック');
+      assert.equal(error.response.data.message, 'Not Found', 'エラーメッセージのチェック');
     });
   });
 
@@ -84,22 +84,22 @@ describe("updateTodoTest", () => {
    *
    * バリデーションエラー
    */
-  it("testFailValidation", () => {
+  it('testFailValidation', () => {
     return (async () => {
       const todoUpdateRequest = {
-        id: "1",
-        title: "",
+        id: '1',
+        title: '',
         isCompleted: true,
       };
 
       const response = await TodoTest.ApiClient.updateTodo(todoUpdateRequest);
       assert.fail(response.data);
     })().catch((error) => {
-      assert.equal(error.response.status, 422, "ステータスコードのチェック");
-      assert.equal(error.response.data.code, 422, "エラーコードのチェック");
-      assert.equal(error.response.data.message, "Unprocessable Entity", "エラーメッセージのチェック");
-      assert.ok(error.response.data.errors.id, "idがerrorに含まれている事をチェック");
-      assert.ok(error.response.data.errors.title, "titleがerrorに含まれている事をチェック");
+      assert.equal(error.response.status, 422, 'ステータスコードのチェック');
+      assert.equal(error.response.data.code, 422, 'エラーコードのチェック');
+      assert.equal(error.response.data.message, 'Unprocessable Entity', 'エラーメッセージのチェック');
+      assert.ok(error.response.data.errors.id, 'idがerrorに含まれている事をチェック');
+      assert.ok(error.response.data.errors.title, 'titleがerrorに含まれている事をチェック');
     });
   });
 });

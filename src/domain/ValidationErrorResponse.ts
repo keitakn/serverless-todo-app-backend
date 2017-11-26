@@ -1,4 +1,4 @@
-import * as lambda from "aws-lambda";
+import * as lambda from 'aws-lambda';
 
 /**
  * ValidationErrorResponse
@@ -33,14 +33,14 @@ export default class ValidationErrorResponse {
 
     const responseBody = {
       code: responseCode,
-      message: "Unprocessable Entity",
+      message: 'Unprocessable Entity',
       errors: this.validateResultObject,
     };
 
     return {
       statusCode: responseCode,
       headers: {
-        "Access-Control-Allow-Origin" : "*",
+        'Access-Control-Allow-Origin' : '*',
       },
       body: JSON.stringify(responseBody),
     };

@@ -1,4 +1,4 @@
-import DomainValidator from "./DomainValidator";
+import DomainValidator from './DomainValidator';
 
 /**
  * TodoValidationService
@@ -16,13 +16,13 @@ export default class TodoValidationService {
    */
   public static createValidate(request: any): {[name: string]: string} {
     const scheme = {
-      type: "object",
+      type: 'object',
       required: [
-        "title",
+        'title',
       ],
       properties: {
         title: {
-          type: "string",
+          type: 'string',
           minLength: 3,
           maxLength: 20,
         },
@@ -43,13 +43,13 @@ export default class TodoValidationService {
    */
   public static findValidate(request: any): {[name: string]: string} {
     const scheme = {
-      type: "object",
+      type: 'object',
       required: [
-        "id",
+        'id',
       ],
       properties: {
         id: {
-          type: "string",
+          type: 'string',
           minLength: 36,
           maxLength: 36,
         },
@@ -70,10 +70,10 @@ export default class TodoValidationService {
    */
   public static findListValidate(request: any): {[name: string]: string} {
     const scheme = {
-      type: "object",
+      type: 'object',
       properties: {
         limit: {
-          type: "number",
+          type: 'number',
           minimum: 1,
           maximum: 11,
           exclusiveMaximum: true,
@@ -95,25 +95,25 @@ export default class TodoValidationService {
    */
   public static updateValidate(request: any): {[name: string]: string}  {
     const scheme = {
-      type: "object",
+      type: 'object',
       required: [
-        "id",
-        "title",
-        "isCompleted",
+        'id',
+        'title',
+        'isCompleted',
       ],
       properties: {
         id: {
-          type: "string",
+          type: 'string',
           minLength: 36,
           maxLength: 36,
         },
         title: {
-          type: "string",
+          type: 'string',
           minLength: 3,
           maxLength: 20,
         },
         isCompleted: {
-          type: "boolean",
+          type: 'boolean',
           minLength: 4,
           maxLength: 5,
         },
@@ -134,13 +134,13 @@ export default class TodoValidationService {
    */
   public static deleteTodoValidate(request: any): {[name: string]: string} {
     const scheme = {
-      type: "object",
+      type: 'object',
       required: [
-        "id",
+        'id',
       ],
       properties: {
         id: {
-          type: "string",
+          type: 'string',
           minLength: 36,
           maxLength: 36,
         },
