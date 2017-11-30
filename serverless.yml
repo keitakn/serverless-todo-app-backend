@@ -12,6 +12,7 @@ provider:
   iamRoleStatements:
     - Effect: Allow
       Action:
+        - cognito-idp:AdminUpdateUserAttributes
         - dynamodb:DescribeTable
         - dynamodb:Query
         - dynamodb:Scan
@@ -19,7 +20,9 @@ provider:
         - dynamodb:PutItem
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
-      Resource: 'arn:aws:dynamodb:ap-northeast-1:*:*'
+      Resource:
+        - 'arn:aws:dynamodb:ap-northeast-1:*:*'
+        - "arn:aws:cognito-idp:ap-northeast-1:*:userpool/*"
   environment:
     DEPLOY_STAGE: ${env:DEPLOY_STAGE}
     TODOS_TABLE_NAME: ${env:DEPLOY_STAGE}_Todo
@@ -50,6 +53,8 @@ functions:
           path: todo
           method: post
           cors: true
+          authorizer:
+            arn: ${env:TODO_APP_USER_POOL_ARN}
   findTodo:
     handler: build/functions/todo.find
     events:
@@ -57,6 +62,8 @@ functions:
           path: todo/{id}
           method: get
           cors: true
+          authorizer:
+            arn: ${env:TODO_APP_USER_POOL_ARN}
   findTodoList:
     handler: build/functions/todo.findList
     events:
@@ -64,6 +71,8 @@ functions:
           path: todo
           method: get
           cors: true
+          authorizer:
+            arn: ${env:TODO_APP_USER_POOL_ARN}
   updateTodo:
     handler: build/functions/todo.update
     events:
@@ -71,6 +80,8 @@ functions:
           path: todo/{id}
           method: put
           cors: true
+          authorizer:
+            arn: ${env:TODO_APP_USER_POOL_ARN}
   deleteTodo:
     handler: build/functions/todo.deleteTodo
     events:
@@ -78,6 +89,8 @@ functions:
           path: todo/{id}
           method: delete
           cors: true
+          authorizer:
+            arn: ${env:TODO_APP_USER_POOL_ARN}
 
 resources:
   Resources:
